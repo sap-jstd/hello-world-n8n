@@ -1,0 +1,10 @@
+apiVersion: solution.sap/v1
+kind: Solution
+
+metadata:
+  name: hello-world-workflow-02a2a
+  version: "1.0.0"
+  description: "A simple n8n workflow that logs Hello World"
+
+assets:
+  - ref: ./assets/workflows/hello-world-workflow/asset.yaml

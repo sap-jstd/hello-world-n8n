@@ -1,0 +1,16 @@
+apiVersion: asset.sap/v1
+kind: Asset
+
+metadata:
+  name: hello-world-workflow
+  description: Logs Hello World when triggered manually
+  version: "1.0.0"
+  type: n8nworkflow
+
+projectVersion: "1"
+sourceRoot: "."
+
+workflow:
+  definitionFile: hello-world-workflow.n8n.json
+  name: hello-world-workflow
+  ordId: sap.btpn8n:apiResource:ManagedN8nMcpServer:v1
