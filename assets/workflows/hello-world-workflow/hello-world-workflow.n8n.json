@@ -1,32 +1,76 @@
 {
   "name": "Hello World Workflow",
-  "description": "A simple workflow triggered manually that logs Hello World using a Code node.",
+  "description": "A simple workflow triggered by a webhook that logs Hello World and returns the message.",
   "nodes": [
     {
-      "id": "1",
-      "name": "Manual Trigger",
-      "type": "n8n-nodes-base.manualTrigger",
-      "typeVersion": 1,
-      "position": [240, 300],
-      "parameters": {}
+      "id": "1a2b3c4d-0001-4000-8000-000000000001",
+      "name": "Hello World",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        240,
+        300
+      ],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "hello-world-workflow-02a2a/hello-world-workflow/hello-world",
+        "responseMode": "responseNode",
+        "authentication": "none"
+      }
     },
     {
-      "id": "2",
+      "id": "1a2b3c4d-0002-4000-8000-000000000002",
       "name": "Log Hello World",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [460, 300],
+      "position": [
+        460,
+        300
+      ],
       "parameters": {
+        "mode": "runOnceForAllItems",
         "jsCode": "console.log('Hello World');\nreturn [{ json: { message: 'Hello World' } }];"
+      }
+    },
+    {
+      "id": "1a2b3c4d-0003-4000-8000-000000000003",
+      "name": "Respond to Webhook",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        680,
+        300
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ { message: $json.message } }}"
       }
     }
   ],
   "connections": {
-    "Manual Trigger": {
+    "Hello World": {
       "main": [
-        [{ "node": "Log Hello World", "type": "main", "index": 0 }]
+        [
+          {
+            "node": "Log Hello World",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log Hello World": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
       ]
     }
   },
-  "pinData": {}
+  "pinData": {},
+  "id": "oofvlXiNoyz2lZA5"
 }

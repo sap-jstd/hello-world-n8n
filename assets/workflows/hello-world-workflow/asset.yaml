@@ -3,7 +3,7 @@ kind: Asset
 
 metadata:
   name: hello-world-workflow
-  description: Logs Hello World when triggered manually
+  description: Logs Hello World when triggered via webhook
   version: "1.0.0"
   type: n8nworkflow
 
@@ -14,3 +14,15 @@ workflow:
   definitionFile: hello-world-workflow.n8n.json
   name: hello-world-workflow
   ordId: sap.btpn8n:apiResource:ManagedN8nMcpServer:v1
+
+provides:
+  apis:
+    - name: hello_world
+      path: /hello-world-workflow-02a2a/hello-world-workflow/hello-world
+      kind: rest
+      description: Triggers the Hello World workflow and returns a Hello World message
+      ordId: "sap.n8nwfrt:apiResource:hello-world-workflow-02a2a_hello-world-workflow.helloWorld:v1"
+    - name: hello_world_mcp_server
+      kind: mcp-server
+      description: MCP server for hello world operations
+      ordId: "sap.n8nwfrt:apiResource:hello-world-workflow-02a2a_hello-world-workflow.helloWorldMcpServer:v1"
